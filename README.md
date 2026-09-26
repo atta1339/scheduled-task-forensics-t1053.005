@@ -15,11 +15,11 @@ The primary goal was to map the visibility differences between default task logg
 ---
 ## Repository Structure & Evidence
 
-* **Raw Artifacts:** [`artifacts/Event_4698_Log.txt`](artifacts/Event_4698_Log.txt) — Captured Security Log Event ID 4698 telemetry containing raw task creation schema and Base64 argument.
-* **Triage Script:** [`scripts/Decode-Payload.ps1`](scripts/Decode-Payload.ps1) — PowerShell payload decoder used during the investigation.
-
+* **Raw Artifacts:** [`artifacts/Event_4698_Log.txt`](artifacts/Event_4698_Log.txt) — Captured Security Log Event ID 4698 telemetry.
+* **Telemetry Setup:** [`scripts/Setup-TelemetryAndAuditPolicy.ps1`](scripts/Setup-TelemetryAndAuditPolicy.ps1) — PowerShell script to configure Task Scheduler logging and Security Object Access auditing.
+* **Artifact Collector:** [`scripts/Get-TaskSchedulerArtifacts.ps1`](scripts/Get-TaskSchedulerArtifacts.ps1) — Triage script to pull Event IDs 106, 141, and 4698.
+* **Payload Decoder:** [`scripts/Decode-Payload.ps1`](scripts/Decode-Payload.ps1) — Forensic Base64 payload reverse-engineering script.
 ---
-
 ## 2. Technical Steps Executed & Artifact Capture
 
 ### Step 1: Enabling Telemetry
@@ -34,11 +34,30 @@ Initial attempts to simulate task creation using standard user triggers failed d
 ```powershell
 schtasks /Create /TN "T1053_005_Test" /TR "calc.exe" /SC DAILY /ST 23:59 /RU "NT AUTHORITY\SYSTEM" /F
 ```
+## Automated Threat Emulation via Atomic Red Team
+
+To validate detection coverage against standardized adversary tradecraft, tests from Red Canary's **Atomic Red Team** library were executed against the host.
+
+### Tests Executed
+* **Atomic Test #2 (`T1053.005-2`):** Local Scheduled Task Creation (`schtasks.exe`).
+* **Atomic Test #4 (`T1053.005-4`):** PowerShell Cmdlet Scheduled Task (`Register-ScheduledTask`).
+
+### Detection Summary & Telemetry Matrix
+
+| Test ID | Method | Generated Event ID | Telemetry Source | Payload Visibility |
+| :--- | :--- | :--- | :--- | :--- |
+| **T1053.005-2** | `schtasks.exe` | 106, 4698 | Operational & Security | Full arguments captured in Security Log (4698) |
+| **T1053.005-4** | `Register-ScheduledTask` | 106, 4698 | Operational & Security | Full PS Object parameters captured in 4698 |
+
+### Automated Execution Script
+* **Validation Script:** [`scripts/Invoke-AtomicValidation.ps1`](scripts/Invoke-AtomicValidation.ps1)
 
 * **Captured Artifact (Event ID 106 - Task Registration):**
   * **Event ID:** 106
   * **Task Name:** `\T1053_005_Test`
   * **User Context / SID:** `S-1-5-18` (Mapped directly to `NT AUTHORITY\SYSTEM`)
+
+  ---
 
 ### Step 3: Simulating Deletion & Anti-Forensics Lifecycle
 To simulate an adversary removing their footprint, the test task was forcibly deleted. A PowerShell query pulled the deletion log to prove a forensic trail remains:
