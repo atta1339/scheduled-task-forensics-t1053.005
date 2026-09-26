@@ -101,3 +101,39 @@ schtasks /Delete /TN "T1053_005_FreshLog" /F
 * **Containment:** If a rogue task is detected, immediately stop any active process twins via `Stop-Process` or task manager and drop network connectivity for the VM to isolate lateral movement vectors.
 * **Remediation:** Forcibly delete the task using administrative overrides, then manually scrub any residual XML payload definitions located in `C:\Windows\System32\Tasks\`.
 * **Hardening:** Restrict local administrator permissions using Tiered Administration models to prevent non-authorized systems from accessing elevated command channels.
+
+---
+---
+
+## Comprehensive Event ID Forensic Reference
+
+During scheduled task operations, events are generated across multiple Windows log channels depending on system configuration and active audit policies:
+
+### 1. Security Log (`Security.evtx`) — *Requires Object Access Auditing*
+* **`4698` — Task Created:** Captures full XML schema, executable paths, and arguments.
+* **`4699` — Task Deleted:** Logged upon explicit task removal.
+* **`4700` — Task Enabled:** Logged when a disabled task is activated.
+* **`4701` — Task Disabled:** Logged when an active task is turned off.
+* **`4702` — Task Updated:** Logged when task triggers, parameters, or actions are modified.
+
+### 2. Task Scheduler Operational Log (`Microsoft-Windows-TaskScheduler/Operational`)
+* **`106` — Task Registered:** Logged upon task configuration (omits detailed payload arguments).
+* **`100` — Task Started:** Logged when the Task Scheduler engine launches the task.
+* **`102` — Task Completed:** Logged when process execution finishes.
+* **`129` — Process Created:** Records PID spawned by `taskeng.exe` / `svchost.exe`.
+* **`140` — Task Updated:** Logged upon configuration edits.
+* **`141` — Task Deleted:** Logged when `schtasks /delete` or GUI deletion occurs.
+
+---
+
+## Adversary Emulation via Atomic Red Team
+
+To validate detection coverage against standardized adversary tradecraft, tests from Red Canary's **Atomic Red Team** library were executed against the host.
+
+### Atomic Tests Covered
+* **Test #1 (`T1053.005-1`):** Local Scheduled Task (`schtasks.exe`).
+* **Test #2 (`T1053.005-2`):** Local Scheduled Task as SYSTEM (`NT AUTHORITY\SYSTEM`).
+* **Test #4 (`T1053.005-4`):** PowerShell Cmdlet Scheduled Task (`Register-ScheduledTask`).
+
+### Test Execution Script
+* **Automated Runner:** [`scripts/Invoke-AllAtomicTests.ps1`](scripts/Invoke-AllAtomicTests.ps1) — Automates execution, log parsing, and artifact cleanup.
