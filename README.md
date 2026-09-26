@@ -17,6 +17,9 @@ The primary goal was to map the visibility differences between default task logg
 
 * **Raw Artifacts:** [`artifacts/Event_4698_Log.txt`](artifacts/Event_4698_Log.txt) — Captured Security Log Event ID 4698 telemetry containing raw task creation schema and Base64 argument.
 * **Triage Script:** [`scripts/Decode-Payload.ps1`](scripts/Decode-Payload.ps1) — PowerShell payload decoder used during the investigation.
+
+---
+
 ## 2. Technical Steps Executed & Artifact Capture
 
 ### Step 1: Enabling Telemetry
