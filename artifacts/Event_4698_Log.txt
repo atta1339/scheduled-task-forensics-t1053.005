@@ -1,0 +1,6 @@
+TimeCreated: 26/09/2026 6:01:29 PM
+Event ID: 4698
+Task Name: \T1053_005_FreshLog
+Command: powershell.exe
+Arguments: -WindowStyle Hidden -EncodedCommand dwBoAG8AYQBtAGkAIAAvAGEAbABsACAAPgAgAEMAOgBcAFUAcwBl AHIAcwBcAFAAdQBiAGwAaQBjAFwAcAByAG8AbwBmAC4AdAB4AHQA
+User: NT AUTHORITY\SYSTEM
