@@ -1,9 +1,12 @@
 ### 🛡️ DFIR Incident Report — Scheduled Task Persistence (MITRE ATT&CK T1053.005)
 
 Analyst: Atta Kouhzad
+
 Date: 27 September 2026
 Host: WORKGROUP\DESKTOP‑TMOUBAD
+
 Case Type: Persistence Investigation
+
 Classification: Internal DFIR Lab Case Study
 
 ***📌 1. Executive Summary***
