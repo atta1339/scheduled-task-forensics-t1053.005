@@ -1,4 +1,4 @@
-* ### 🛡️ DFIR Incident Report — Scheduled Task Persistence (MITRE ATT&CK T1053.005)
+#### 🛡️ DFIR Incident Report — Scheduled Task Persistence (MITRE ATT&CK T1053.005)
 
 Analyst: Atta Kouhzad
 Date: 27 September 2026
