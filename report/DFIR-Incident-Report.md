@@ -1,4 +1,4 @@
-****🛡️ DFIR Incident Report — Scheduled Task Persistence (MITRE ATT&CK T1053.005)****
+* ### 🛡️ DFIR Incident Report — Scheduled Task Persistence (MITRE ATT&CK T1053.005)
 
 Analyst: Atta Kouhzad
 Date: 27 September 2026
@@ -84,7 +84,7 @@ Visible persistence mechanism
 
 Demonstrates SYSTEM‑level execution
 
-***🕒 4. Timeline Correlation***
+### 🕒 4. Timeline Correlation
 
 This timeline is reconstructed using Sysmon, Security.evtx, and TaskScheduler Operational logs.
 
@@ -133,7 +133,7 @@ Sysmon Event ID 11 — File Created
 Code
 C:\Users\Public\proof.txt
 
-***🧩 5. MITRE ATT&CK Mapping***
+### 🧩 5. MITRE ATT&CK Mapping
 
 Technique	ID	Description
 Scheduled Task	T1053.005	Persistence via Task Scheduler
@@ -144,7 +144,7 @@ Data Collection	T1005	whoami /all output
 Indicator Hiding	T1070	Hidden PowerShell window
 
 
-***🧪 6. Indicators of Compromise (IOCs)***
+### 🧪 6. Indicators of Compromise (IOCs)
 
 Scheduled Tasks
 \T1053_005_FreshLog
@@ -162,7 +162,7 @@ C:\Users\Public\proof.txt
 User Context
 SYSTEM (S-1-5-18)
 
-***📊 7. Impact Assessment***
+### 📊 7. Impact Assessment
 
 SYSTEM‑level persistence grants full control over the host
 
@@ -184,7 +184,7 @@ credential theft
 
 network propagation
 
-***🔧 8. Remediation Recommendations***
+### 🔧 8. Remediation Recommendations
 
 Immediate Actions
 Delete both scheduled tasks
@@ -206,7 +206,7 @@ Disable PowerShell for non‑admin users
 
 Implement LAPS / strong credential hygiene
 
-****📝 9. Conclusion****
+### 📝 9. Conclusion
 
 The investigation confirms two scheduled tasks providing SYSTEM‑level persistence on the host. Both tasks executed successfully at boot, with one producing a visible payload and the other silently collecting system identity information.
 
