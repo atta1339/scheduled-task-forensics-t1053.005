@@ -30,9 +30,9 @@ Identification of artifacts and IOCs
 
 Recommendations for remediation and hardening
 
-###***🧩 3. Persistence Mechanisms Identified***
+### 🧩 3. Persistence Mechanisms Identified
 
-### 3.1 Scheduled Task: T1053_005_FreshLog
+***3.1 Scheduled Task: T1053_005_FreshLog***
 Trigger: BootTrigger
 Execution: Runs at every system startup
 User Context: SYSTEM (S-1-5-18)
