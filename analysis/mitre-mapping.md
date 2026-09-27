@@ -1,4 +1,5 @@
 ****🧩 MITRE ATT&CK Mapping — Scheduled Task Forensics (T1053.005)****
+
 This document maps all observed behaviors in the investigation to the MITRE ATT&CK framework.
 Each technique is tied directly to evidence found in Sysmon, Security, and TaskScheduler logs.
 
